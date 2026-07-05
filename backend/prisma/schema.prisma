@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  events Event[]
+}
+
+model Venue {
+  id       Int     @id @default(autoincrement())
+  name     String
+  address  String
+  guests   Int
+  events   Event[]
+}
+
+model Event {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  date        DateTime
+  time        String?
+  venueId     Int?
+  venue       Venue?    @relation(fields: [venueId], references: [id], onDelete: SetNull)
+  categoryId  Int?
+  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  bookings    Booking[]
+}
+
+model Participant {
+  id       Int       @id @default(autoincrement())
+  name     String
+  email    String    @unique
+  phone    String?
+  bookings Booking[]
+}
+
+model Booking {
+  id            Int         @id @default(autoincrement())
+  eventId       Int
+  event         Event       @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  participantId Int
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  bookingDate   DateTime    @default(now())
+}
+
