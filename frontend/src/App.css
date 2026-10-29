@@ -184,14 +184,14 @@
 }
 
 .login-promotion-banner {
-  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+  background: linear-gradient(90deg, #2C5E3B 0%, #7EBD55 100%);
   color: white;
   padding: 12px 24px;
   text-align: center;
   border-radius: 12px;
   margin: 20px auto 0;
   max-width: 90%;
-  box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(44, 94, 59, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -225,7 +225,7 @@
 
 .banner-btn {
   background-color: white !important;
-  color: #3b82f6 !important;
+  color: #2C5E3B !important;
   font-weight: 600 !important;
   padding: 6px 16px !important;
   border-radius: 8px !important;

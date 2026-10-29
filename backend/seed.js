@@ -1,55 +1,99 @@
 const prisma = require('./src/config/prisma');
 
-const defaultVenues = [
-  { name: 'Royal Palm Banquet Hall', address: '52 Canal Bank Road, Lahore', guests: 500 },
-  { name: 'Jinnah Convention Centre', address: 'Club Road, Islamabad', guests: 1000 },
-  { name: 'PC Hotel Marquee', address: 'Shahrah-e-Quaid-e-Azam, Lahore', guests: 400 },
-  { name: 'Beach Luxury Hotel Lawn', address: 'Lalazar, Karachi', guests: 300 },
-  { name: 'Shalimar Gardens Pavillion', address: 'GT Road, Lahore', guests: 250 },
-  { name: 'Serena Sheesh Mahal', address: 'Khayaban-e-Suhrawardy, Islamabad', guests: 350 },
-  { name: 'PAF Yacht Club Lounge', address: 'DHA Phase 8, Karachi', guests: 150 },
-  { name: 'Shahi Qila Courtyard', address: 'Walled City, Lahore', guests: 800 },
-  { name: 'Khanpur Lake Resort', address: 'Khanpur Dam, Haripur', guests: 120 },
-  { name: 'Expo Centre Hall', address: 'Johar Town, Lahore', guests: 1500 }
-];
-
-const defaultCategories = [
-  { name: 'Conference' },
-  { name: 'Seminar' },
-  { name: 'Workshop' },
-  { name: 'Concert' },
-  { name: 'Wedding' },
-  { name: 'Birthday Party' },
-  { name: 'Exhibition' },
-  { name: 'Meetup' },
-  { name: 'Sports' },
-  { name: 'Festival' }
+const defaultPlants = [
+  {
+    commonName: 'Aloe Vera',
+    scientificName: 'Aloe barbadensis miller',
+    oxygenSupport: '~1 person',
+    advantages: 'Medicinal gel, air purification',
+    disadvantages: 'Toxic if eaten raw',
+    humanBenefits: 'Heals burns and skin problems'
+  },
+  {
+    commonName: 'Money Plant',
+    scientificName: 'Epipremnum aureum',
+    oxygenSupport: '~1 person',
+    advantages: 'Removes toxins',
+    disadvantages: 'Toxic to pets',
+    humanBenefits: 'Improves air quality'
+  },
+  {
+    commonName: 'Snake Plant',
+    scientificName: 'Sansevieria trifasciata',
+    oxygenSupport: '~2 persons at night',
+    advantages: 'Night oxygen release',
+    disadvantages: 'Slow growth',
+    humanBenefits: 'Better sleep'
+  },
+  {
+    commonName: 'Areca Palm',
+    scientificName: 'Areca catechu',
+    oxygenSupport: '~3 persons',
+    advantages: 'Humidifier',
+    disadvantages: 'Needs space',
+    humanBenefits: 'Improves breathing'
+  },
+  {
+    commonName: 'Tulsi',
+    scientificName: 'Ocimum tenuiflorum',
+    oxygenSupport: '~1 person',
+    advantages: 'Medicinal',
+    disadvantages: 'Needs sunlight',
+    humanBenefits: 'Boosts immunity'
+  },
+  {
+    commonName: 'Rubber Plant',
+    scientificName: 'Ficus elastica',
+    oxygenSupport: '~2 persons',
+    advantages: 'Removes pollutants',
+    disadvantages: 'Large size',
+    humanBenefits: 'Cleaner air'
+  },
+  {
+    commonName: 'Spider Plant',
+    scientificName: 'Chlorophytum comosum',
+    oxygenSupport: '~1 person',
+    advantages: 'Removes CO',
+    disadvantages: 'Needs maintenance',
+    humanBenefits: 'Reduces allergies'
+  },
+  {
+    commonName: 'Peace Lily',
+    scientificName: 'Spathiphyllum wallisii',
+    oxygenSupport: '~1 person',
+    advantages: 'Removes mold',
+    disadvantages: 'Toxic',
+    humanBenefits: 'Better breathing'
+  },
+  {
+    commonName: 'Neem',
+    scientificName: 'Azadirachta indica',
+    oxygenSupport: '~5 persons',
+    advantages: 'Antibacterial',
+    disadvantages: 'Bitter smell',
+    humanBenefits: 'Kills germs'
+  },
+  {
+    commonName: 'Rose',
+    scientificName: 'Rosa indica',
+    oxygenSupport: '~1 person',
+    advantages: 'Fragrance',
+    disadvantages: 'Needs care',
+    humanBenefits: 'Reduces stress'
+  }
 ];
 
 async function main() {
-  console.log('Seeding 10 default Pakistani venues...');
-  for (const venue of defaultVenues) {
-    const existing = await prisma.venue.findFirst({
-      where: { name: venue.name }
+  console.log('Seeding reference plant catalog...');
+  for (const p of defaultPlants) {
+    const existing = await prisma.plantCatalog.findUnique({
+      where: { scientificName: p.scientificName }
     });
     if (!existing) {
-      await prisma.venue.create({ data: venue });
-      console.log(`Created Venue: ${venue.name}`);
+      await prisma.plantCatalog.create({ data: p });
+      console.log(`Created PlantCatalog: ${p.commonName}`);
     } else {
-      console.log(`Exists Venue: ${venue.name}`);
-    }
-  }
-
-  console.log('Seeding 10 default categories...');
-  for (const cat of defaultCategories) {
-    const existing = await prisma.category.findFirst({
-      where: { name: cat.name }
-    });
-    if (!existing) {
-      await prisma.category.create({ data: cat });
-      console.log(`Created Category: ${cat.name}`);
-    } else {
-      console.log(`Exists Category: ${cat.name}`);
+      console.log(`Exists PlantCatalog: ${p.commonName}`);
     }
   }
 

@@ -3,6 +3,143 @@ import { useNavigate, Link } from 'react-router-dom';
 import loginBg from '../assets/login_custom_event.jpg';
 import './Login.css'; // Reuse the beautiful layout styling
 
+const LeafLogo = ({ size = 80 }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
+    <defs>
+      <linearGradient id="leftLeafGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#2C5E3B" />
+        <stop offset="100%" stopColor="#4A8B5B" />
+      </linearGradient>
+      <linearGradient id="rightLeafGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#7EBD55" />
+        <stop offset="100%" stopColor="#98D173" />
+      </linearGradient>
+    </defs>
+    <path d="M 50 90 C 18 72, 12 38, 44 10 C 48 38, 50 65, 50 90 Z" fill="url(#leftLeafGrad)" />
+    <path d="M 52 90 C 82 75, 88 42, 60 15 C 56 42, 52 68, 52 90 Z" fill="url(#rightLeafGrad)" />
+  </svg>
+);
+
+const FoliageWatermark = ({ className }) => {
+  const getCubicPoint = (p0, p1, p2, p3, t) => {
+    const u = 1 - t;
+    const tt = t * t;
+    const uu = u * u;
+    const uuu = uu * u;
+    const ttt = tt * t;
+    return {
+      x: p0.x * uuu + p1.x * 3 * uu * t + p2.x * 3 * u * tt + p3.x * ttt,
+      y: p0.y * uuu + p1.y * 3 * uu * t + p2.y * 3 * u * tt + p3.y * ttt
+    };
+  };
+
+  const getCubicTangent = (p0, p1, p2, p3, t) => {
+    const u = 1 - t;
+    const tt = t * t;
+    const uu = u * u;
+    return {
+      x: (p1.x - p0.x) * 3 * uu + (p2.x - p1.x) * 6 * u * t + (p3.x - p2.x) * 3 * tt,
+      y: (p1.y - p0.y) * 3 * uu + (p2.y - p1.y) * 6 * u * t + (p3.y - p2.y) * 3 * tt
+    };
+  };
+
+  const mainBranchSpecs = [
+    { t: 0.12, angleOffset: -0.65, scale: 1.15, isDark: true },
+    { t: 0.22, angleOffset: 0.55, scale: 1.08, isDark: false },
+    { t: 0.32, angleOffset: -0.60, scale: 1.02, isDark: true },
+    { t: 0.44, angleOffset: 0.50, scale: 0.96, isDark: false },
+    { t: 0.56, angleOffset: -0.52, scale: 0.88, isDark: true },
+    { t: 0.68, angleOffset: 0.45, scale: 0.82, isDark: false },
+    { t: 0.80, angleOffset: -0.40, scale: 0.74, isDark: true },
+    { t: 0.90, angleOffset: 0.32, scale: 0.66, isDark: false },
+    { t: 1.00, angleOffset: -0.05, scale: 0.55, isDark: true },
+  ];
+
+  const secondaryBranchSpecs = [
+    { t: 0.15, angleOffset: 0.60, scale: 1.0, isDark: false },
+    { t: 0.30, angleOffset: -0.55, scale: 0.92, isDark: true },
+    { t: 0.48, angleOffset: 0.50, scale: 0.84, isDark: false },
+    { t: 0.68, angleOffset: -0.48, scale: 0.76, isDark: true },
+    { t: 0.85, angleOffset: 0.38, scale: 0.66, isDark: false },
+    { t: 1.00, angleOffset: 0.05, scale: 0.52, isDark: true },
+  ];
+
+  const drawBranch = (p0, p1, p2, p3, specs, isMain) => {
+    const leaves = specs.map((spec, index) => {
+      const base = getCubicPoint(p0, p1, p2, p3, spec.t);
+      const tangent = getCubicTangent(p0, p1, p2, p3, spec.t);
+      const baseAngleRad = Math.atan2(tangent.y, tangent.x);
+      const finalAngleRad = baseAngleRad + spec.angleOffset;
+      const angleDeg = (finalAngleRad * 180) / Math.PI;
+
+      const length = (isMain ? 58 : 48) * spec.scale;
+      const width = (isMain ? 13 : 11) * spec.scale;
+
+      const leftFill = spec.isDark ? "url(#foliageDarkGrad)" : "url(#foliageLightGrad)";
+      const rightFill = spec.isDark ? "url(#foliageDarkGradDarker)" : "url(#foliageLightGradDarker)";
+
+      return (
+        <g key={index} transform={`translate(${base.x}, ${base.y}) rotate(${angleDeg})`}>
+          <path d={`M 0,0 Q ${length * 0.35},${-width * 0.5} ${length},0 Q ${length * 0.45},${-width * 0.15} 0,0 Z`} fill={leftFill} />
+          <path d={`M 0,0 Q ${length * 0.35},${width * 0.5} ${length},0 Q ${length * 0.45},${width * 0.15} 0,0 Z`} fill={rightFill} />
+          <line x1="0" y1="0" x2={length * 0.88} y2="0" stroke="rgba(0,0,0,0.22)" strokeWidth="0.8" />
+        </g>
+      );
+    });
+
+    // Generate path data for the stem
+    const steps = 30;
+    let pathData = `M ${p0.x},${p0.y}`;
+    for (let i = 1; i <= steps; i++) {
+      const pt = getCubicPoint(p0, p1, p2, p3, i / steps);
+      pathData += ` L ${pt.x},${pt.y}`;
+    }
+
+    return (
+      <g key={isMain ? "main" : "sub"}>
+        <path d={pathData} fill="none" stroke="#2C4A34" strokeWidth={isMain ? "2.4" : "1.8"} strokeLinecap="round" opacity="0.85" />
+        {leaves}
+      </g>
+    );
+  };
+
+  // Coordinates matching viewBox="0 0 400 700"
+  const mainP0 = { x: -30, y: 730 };
+  const mainP1 = { x: 75, y: 620 };
+  const mainP2 = { x: 140, y: 580 };
+  const mainP3 = { x: 210, y: 490 };
+
+  const subP0 = { x: -20, y: 650 };
+  const subP1 = { x: 60, y: 660 };
+  const subP2 = { x: 120, y: 650 };
+  const subP3 = { x: 180, y: 590 };
+
+  return (
+    <svg viewBox="0 0 400 700" className={`foliage-svg ${className}`} xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="foliageDarkGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#1E3523" />
+          <stop offset="100%" stopColor="#4A7555" />
+        </linearGradient>
+        <linearGradient id="foliageLightGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#3B5E41" />
+          <stop offset="100%" stopColor="#6DA376" />
+        </linearGradient>
+        <linearGradient id="foliageDarkGradDarker" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#122216" />
+          <stop offset="100%" stopColor="#3E6247" />
+        </linearGradient>
+        <linearGradient id="foliageLightGradDarker" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#2F4B34" />
+          <stop offset="100%" stopColor="#5E8D66" />
+        </linearGradient>
+      </defs>
+      {drawBranch(mainP0, mainP1, mainP2, mainP3, mainBranchSpecs, true)}
+      {drawBranch(subP0, subP1, subP2, subP3, secondaryBranchSpecs, false)}
+    </svg>
+  );
+};
+
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -74,36 +211,29 @@ export default function Register() {
     }, 2000);
   };
 
-  const handleSocialRegister = (platform) => {
-    setAlert({
-      type: 'success',
-      message: `Signing up with ${platform}...`,
-    });
-  };
+
 
   return (
     <div className="login-page-container">
-      <div className="login-bg-glow-1"></div>
-      <div className="login-bg-glow-2"></div>
-
       <div className="login-card">
-        {/* Left Side: Brand Visual Panel */}
-        <div className="login-image-column">
-          <img src={loginBg} alt="Event background" className="login-image-bg" />
-          <div className="login-image-overlay"></div>
+        {/* Left Side: Brand Visual Panel (Splash style) */}
+        <div className="login-splash-column">
+          <FoliageWatermark className="bottom-left" />
+          <FoliageWatermark className="bottom-right" />
           
-          <div className="login-brand">
-            <div className="login-logo-container">
-              <div className="login-logo-icon">E</div>
-              <span className="login-logo-text">Eventure</span>
-            </div>
+          <div className="login-splash-center">
+            <LeafLogo size={100} />
+            <h1 className="login-splash-title">AGRI-GUARD</h1>
+            <p className="login-splash-tagline">AI Disease Detection & Solution</p>
+            <p className="login-splash-description">
+              Agri-Guard is your dedicated AI companion for plant health and crop protection. By combining advanced computer vision with expert agricultural insights, our platform instantly identifies plant diseases and provides actionable treatment plans. Empower your farming or gardening journey with real-time diagnostics to keep your crops thriving.
+            </p>
           </div>
 
-          <div className="login-image-info">
-            <h2 className="login-image-title">Join Eventure Today.</h2>
-            <p className="login-image-desc">
-              Get access to the most powerful tools for organizing and hosting events. Collaborate with your team, track bookings, and deliver flawless experiences.
-            </p>
+          <div className="login-splash-progress-container">
+            <div className="login-splash-progress-track">
+              <div className="login-splash-progress-bar"></div>
+            </div>
           </div>
         </div>
 
@@ -111,16 +241,19 @@ export default function Register() {
         <div className="login-form-column">
           {/* Mobile-only brand banner with custom event background */}
           <div className="login-mobile-banner">
-            <img src={loginBg} alt="Event background" className="login-mobile-banner-img" />
+            <img src={loginBg} alt="Plant background" className="login-mobile-banner-img" />
             <div className="login-mobile-banner-overlay">
               <div className="login-mobile-banner-logo">
-                <div className="login-logo-icon">E</div>
-                <span className="login-logo-text">Eventure</span>
+                <LeafLogo size={40} />
+                <span className="login-logo-text">AgriGuard</span>
               </div>
             </div>
           </div>
 
           <div className="login-form-header">
+            <div className="login-logo-wrapper">
+              <LeafLogo size={80} />
+            </div>
             <h1 className="login-form-title">Sign Up</h1>
             <p className="login-form-subtitle">Create a new account</p>
           </div>
@@ -242,34 +375,10 @@ export default function Register() {
             </button>
           </form>
 
-          {/* Social Sign-In Divider */}
-          <div className="login-divider-row">OR REGISTER WITH</div>
-
-          {/* Social Buttons */}
-          <div className="login-social-row">
-            <button className="login-social-btn" onClick={() => handleSocialRegister('Google')} disabled={isLoading}>
-              <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
-                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.53 12-4.53z" fill="#EA4335"/>
-              </svg>
-            </button>
-            <button className="login-social-btn" onClick={() => handleSocialRegister('Facebook')} disabled={isLoading}>
-              <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="#1877F2">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-            </button>
-          </div>
-
           <div className="login-footer-text">
             Already have an account?
             <Link to="/login" className="login-register-link">Login Here</Link>
           </div>
-
-          <svg className="login-city-silhouette" viewBox="0 0 400 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path className="login-city-path" d="M0,60 L400,60 L400,30 L385,30 L385,45 L380,45 L380,25 L375,25 L375,45 L370,45 L370,15 L365,15 L365,45 L360,45 L360,35 L350,35 L350,45 L340,45 L340,5 L330,5 L330,45 L320,45 L320,20 L310,20 L310,45 L300,45 L300,30 L290,30 L290,45 L275,45 L275,10 L260,10 L260,45 L250,45 L250,25 L240,25 L240,45 L230,45 L230,5 L215,5 L215,45 L205,45 L205,30 L195,30 L195,45 L180,45 L180,15 L170,15 L170,45 L160,45 L160,25 L150,25 L150,45 L140,45 L140,0 L125,0 L125,45 L115,45 L115,35 L105,35 L105,45 L90,45 L90,10 L75,10 L75,45 L65,45 L65,20 L55,20 L55,45 L45,45 L45,30 L35,30 L35,45 L20,45 L20,5 L5,5 L5,45 L0,45 Z" />
-          </svg>
         </div>
       </div>
     </div>

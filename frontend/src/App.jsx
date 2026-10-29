@@ -132,11 +132,14 @@ function BoilerplateHome() {
   )
 }
 
+import HomePublic from './pages/HomePublic.jsx'
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<HomePublic />} />
+        <Route path="/home" element={<HomePublic />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />

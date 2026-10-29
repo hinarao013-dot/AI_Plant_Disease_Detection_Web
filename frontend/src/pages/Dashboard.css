@@ -1,19 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap');
 
 :root {
-  --primary: #e91e8c;
-  --primary-hover: #c2186e;
-  --primary-glow: rgba(233, 30, 140, 0.12);
-  --primary-light: rgba(233, 30, 140, 0.08);
-  --secondary: #7c3aed;
-  --success: #10b981;
-  --danger: #ef4444;
+  --primary: #2C5E3B;
+  /* Forest green */
+  --primary-hover: #1e4229;
+  --primary-glow: rgba(44, 94, 59, 0.12);
+  --primary-light: rgba(44, 94, 59, 0.08);
+  --secondary: #7EBD55;
+  /* Leaf green */
+  --success: #7EBD55;
+  --danger: #d32f2f;
   --warning: #f59e0b;
-  --text-dark: #1e1b4b;
-  --text-light: #6b7280;
+  --text-dark: #1A3B23;
+  /* Deep green-charcoal */
+  --text-light: #7D8C80;
+  /* Soft greyish green */
   --sidebar-bg: #ffffff;
-  --bg-main: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%);
-  --border-color: #e5e7eb;
+  --bg-main: #F9F3EB;
+  /* Soft beige */
+  --border-color: #EDE6DC;
+  /* Soft border */
   --card-bg: #ffffff;
 }
 
@@ -21,118 +27,182 @@
 .dashboard-container {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   background: var(--bg-main);
   font-family: 'Outfit', sans-serif;
   color: var(--text-dark);
 }
 
-/* ─── Sidebar ─── */
-.dashboard-sidebar {
-  width: 240px;
-  background-color: var(--sidebar-bg);
-  border-right: 1px solid var(--border-color);
+/* ─── Top Navigation Bar ─── */
+.top-navbar {
   display: flex;
-  flex-direction: column;
-  padding: 28px 16px;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  box-shadow: 2px 0 12px rgba(124, 58, 237, 0.06);
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 32px;
+  background-color: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(44, 94, 59, 0.05);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.sidebar-logo {
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-logo {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 36px;
-  padding-left: 8px;
+  user-select: none;
+  transition: transform 0.2s ease;
 }
 
-.sidebar-logo-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, #e91e8c 0%, #7c3aed 100%);
-  border-radius: 10px;
+.topbar-logo:hover {
+  transform: scale(1.02);
+}
+
+.topbar-logo-icon {
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-weight: 700;
-  font-size: 18px;
-  box-shadow: 0 4px 12px rgba(233, 30, 140, 0.3);
+  flex-shrink: 0;
 }
 
-.sidebar-logo-text {
+.topbar-logo-text {
   font-size: 20px;
-  font-weight: 700;
-  background: linear-gradient(135deg, #e91e8c 0%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 0.3px;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.sidebar-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.sidebar-item {
+.topbar-menu {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 11px 14px;
-  border-radius: 10px;
-  color: #6b7280;
+  gap: 8px;
+}
+
+.topbar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 24px;
+  color: var(--text-light);
   text-decoration: none;
   font-weight: 500;
   font-size: 14.5px;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   background: transparent;
-  border: none;
-  width: 100%;
-  text-align: left;
+  border: 1px solid transparent;
   cursor: pointer;
+  position: relative;
+  white-space: nowrap;
 }
 
-.sidebar-item:hover {
+.topbar-item-icon {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  flex-shrink: 0;
+}
+
+.topbar-item-text {
+  white-space: nowrap;
+}
+
+.topbar-badge {
+  background-color: #ef4444;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 99px;
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+
+.topbar-item:hover {
   color: var(--primary);
   background-color: var(--primary-light);
 }
 
-.sidebar-item.active {
+.topbar-item.active {
   color: var(--primary);
-  background: linear-gradient(135deg, rgba(233,30,140,0.1) 0%, rgba(124,58,237,0.1) 100%);
-  font-weight: 600;
-  border-left: 3px solid var(--primary);
-  padding-left: 11px;
+  background: linear-gradient(135deg, rgba(44, 94, 59, 0.12) 0%, rgba(126, 189, 85, 0.15) 100%);
+  font-weight: 700;
+  border-color: rgba(44, 94, 59, 0.2);
+  box-shadow: 0 2px 8px rgba(44, 94, 59, 0.08);
 }
 
-.sidebar-footer {
-  margin-top: auto;
-  border-top: 1px solid var(--border-color);
-  padding-top: 16px;
-}
-
-.logout-btn {
-  width: 100%;
+.topbar-right {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 11px 14px;
-  border-radius: 10px;
-  color: #ef4444;
+  gap: 16px;
+}
+
+.mobile-menu-toggle {
+  display: none;
   background: transparent;
-  border: none;
-  font-weight: 500;
-  font-size: 14.5px;
+  border: 1px solid var(--border-color);
+  font-size: 20px;
+  color: var(--text-dark);
   cursor: pointer;
-  text-align: left;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
   transition: all 0.2s ease;
 }
 
-.logout-btn:hover {
-  background-color: rgba(239, 68, 68, 0.08);
+/* ─── Media Query for Top Navigation on Mobile Screens ─── */
+@media (max-width: 768px) {
+  .top-navbar {
+    padding: 0 16px;
+    height: 64px;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .topbar-menu {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    flex-direction: column;
+    padding: 16px;
+    gap: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .topbar-menu.open {
+    display: flex;
+  }
+
+  .topbar-item {
+    width: 100%;
+    border-radius: 12px;
+    padding: 12px 16px;
+  }
 }
 
 /* ─── Main Content ─── */
@@ -141,7 +211,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 32px 28px;
+  padding: 24px 28px 32px 28px;
   box-sizing: border-box;
 }
 
@@ -151,6 +221,10 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 28px;
+  background: linear-gradient(135deg, rgba(44, 94, 59, 0.07) 0%, rgba(126, 189, 85, 0.05) 100%);
+  border: 1px solid rgba(44, 94, 59, 0.10);
+  border-radius: 18px;
+  padding: 20px 24px;
 }
 
 .welcome-section h1 {
@@ -218,14 +292,14 @@
   padding: 7px 14px;
   border-radius: 30px;
   border: 1px solid var(--border-color);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
 .user-avatar {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #e91e8c 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   color: white;
   display: flex;
   align-items: center;
@@ -267,18 +341,18 @@
 /* ─── Stats Grid ─── */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 
 .stat-card {
-  background: linear-gradient(135deg, #e91e8c 0%, #c2186e 100%);
+  background: linear-gradient(135deg, #2C5E3B 0%, #1A3B23 100%);
   padding: 20px 22px;
   border-radius: 14px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  box-shadow: 0 6px 20px rgba(233, 30, 140, 0.25);
+  box-shadow: 0 6px 20px rgba(44, 94, 59, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   color: white;
   position: relative;
@@ -293,27 +367,27 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .stat-card:nth-child(2) {
-  background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
-  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.25);
+  background: linear-gradient(135deg, #7EBD55 0%, #5A9436 100%);
+  box-shadow: 0 6px 20px rgba(126, 189, 85, 0.2);
 }
 
 .stat-card:nth-child(3) {
-  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.25);
+  background: linear-gradient(135deg, #115e59 0%, #134e4a 100%);
+  box-shadow: 0 6px 20px rgba(17, 94, 89, 0.25);
 }
 
 .stat-card:nth-child(4) {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.25);
+  background: linear-gradient(135deg, #a16207 0%, #78350f 100%);
+  box-shadow: 0 6px 20px rgba(161, 98, 7, 0.25);
 }
 
 .stat-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(233, 30, 140, 0.3);
+  box-shadow: 0 10px 30px rgba(44, 94, 59, 0.25);
 }
 
 .stat-info h3 {
@@ -321,7 +395,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
   margin: 0;
 }
 
@@ -337,7 +411,7 @@
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -346,10 +420,25 @@
 }
 
 /* legacy color classes (used in non-dashboard tabs) */
-.stat-icon.blue { background-color: rgba(59,130,246,0.1); color: #3b82f6; }
-.stat-icon.purple { background-color: rgba(168,85,247,0.1); color: #a855f7; }
-.stat-icon.green { background-color: rgba(34,197,94,0.1); color: #22c55e; }
-.stat-icon.amber { background-color: rgba(245,158,11,0.1); color: #f59e0b; }
+.stat-icon.blue {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.stat-icon.purple {
+  background-color: rgba(168, 85, 247, 0.1);
+  color: #a855f7;
+}
+
+.stat-icon.green {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+.stat-icon.amber {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
 
 /* ─── Chart Cards ─── */
 .chart-row {
@@ -363,7 +452,7 @@
   border-radius: 14px;
   border: 1px solid var(--border-color);
   padding: 22px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .chart-card-header {
@@ -426,10 +515,17 @@
   transition: opacity 0.2s;
 }
 
-.bar:hover { opacity: 0.8; }
+.bar:hover {
+  opacity: 0.8;
+}
 
-.bar.pink { background: linear-gradient(180deg, #e91e8c 0%, #f472b6 100%); }
-.bar.purple { background: linear-gradient(180deg, #7c3aed 0%, #a78bfa 100%); }
+.bar.pink {
+  background: linear-gradient(180deg, #e91e8c 0%, #f472b6 100%);
+}
+
+.bar.purple {
+  background: linear-gradient(180deg, #7c3aed 0%, #a78bfa 100%);
+}
 
 .bar-label {
   font-size: 10px;
@@ -511,7 +607,7 @@
   border-radius: 14px;
   border: 1px solid var(--border-color);
   padding: 22px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .trends-card h3 {
@@ -528,7 +624,9 @@
   margin-bottom: 14px;
 }
 
-.trend-item:last-child { margin-bottom: 0; }
+.trend-item:last-child {
+  margin-bottom: 0;
+}
 
 .trend-top {
   display: flex;
@@ -536,8 +634,15 @@
   font-size: 13px;
 }
 
-.trend-name { font-weight: 600; color: var(--text-dark); }
-.trend-count { color: var(--text-light); font-size: 12px; }
+.trend-name {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.trend-count {
+  color: var(--text-light);
+  font-size: 12px;
+}
 
 .trend-bar-bg {
   height: 6px;
@@ -558,7 +663,7 @@
   border-radius: 14px;
   border: 1px solid var(--border-color);
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .upcoming-card h3 {
@@ -643,7 +748,9 @@
   transition: opacity 0.2s;
 }
 
-.upcoming-btn:hover { opacity: 0.88; }
+.upcoming-btn:hover {
+  opacity: 0.88;
+}
 
 /* ─── Mini Calendar ─── */
 .calendar-card {
@@ -651,7 +758,7 @@
   border-radius: 14px;
   border: 1px solid var(--border-color);
   padding: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .calendar-header {
@@ -678,7 +785,9 @@
   transition: background 0.15s;
 }
 
-.cal-nav:hover { background: #f3f4f6; }
+.cal-nav:hover {
+  background: #f3f4f6;
+}
 
 .calendar-grid {
   display: grid;
@@ -705,8 +814,15 @@
   transition: background 0.15s;
 }
 
-.cal-day:hover { background: #f3f4f6; }
-.cal-day.empty { color: transparent; pointer-events: none; }
+.cal-day:hover {
+  background: #f3f4f6;
+}
+
+.cal-day.empty {
+  color: transparent;
+  pointer-events: none;
+}
+
 .cal-day.today {
   background: linear-gradient(135deg, #e91e8c 0%, #7c3aed 100%);
   color: white;
@@ -714,7 +830,10 @@
   border-radius: 50%;
 }
 
-.cal-day.has-event { color: var(--primary); font-weight: 700; }
+.cal-day.has-event {
+  color: var(--primary);
+  font-weight: 700;
+}
 
 /* ─── Recent Events Table (section below charts) ─── */
 .content-section,
@@ -723,7 +842,7 @@
   border-radius: 14px;
   border: 1px solid var(--border-color);
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   margin-bottom: 20px;
 }
 
@@ -753,7 +872,7 @@
 .btn-primary {
   height: 38px;
   padding: 0 16px;
-  background: linear-gradient(135deg, #e91e8c 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #2C5E3B 0%, #7EBD55 100%);
   border: none;
   border-radius: 8px;
   color: #ffffff;
@@ -763,15 +882,15 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 3px 10px rgba(233, 30, 140, 0.25);
+  box-shadow: 0 3px 10px rgba(44, 94, 59, 0.25);
   transition: all 0.2s ease;
   font-family: inherit;
 }
 
 .btn-primary:hover {
-  opacity: 0.88;
+  opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 5px 16px rgba(233, 30, 140, 0.35);
+  box-shadow: 0 5px 16px rgba(44, 94, 59, 0.35);
 }
 
 .btn-secondary {
@@ -857,7 +976,7 @@
   overflow-x: auto;
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .recent-table {
@@ -885,17 +1004,57 @@
   vertical-align: middle;
 }
 
-.recent-table tr:last-child td { border-bottom: none; }
-.recent-table tr:hover td { background-color: #fdf4f8; }
+.recent-table tr:last-child td {
+  border-bottom: none;
+}
 
-.event-cell { font-weight: 600; color: var(--text-dark); }
-.event-title-main { font-weight: 600; font-size: 14px; color: var(--text-dark); }
-.event-desc-sub { font-size: 12px; color: var(--text-light); font-weight: 400; margin-top: 2px; }
-.date-main { font-weight: 500; font-size: 13.5px; }
-.time-sub { font-size: 11.5px; color: var(--text-light); margin-top: 2px; }
-.venue-info { display: flex; flex-direction: column; }
-.venue-name { font-weight: 500; color: #374151; }
-.venue-cap { font-size: 11px; color: var(--text-light); }
+.recent-table tr:hover td {
+  background-color: #fdf4f8;
+}
+
+.event-cell {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.event-title-main {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.event-desc-sub {
+  font-size: 12px;
+  color: var(--text-light);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.date-main {
+  font-weight: 500;
+  font-size: 13.5px;
+}
+
+.time-sub {
+  font-size: 11.5px;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+.venue-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.venue-name {
+  font-weight: 500;
+  color: #374151;
+}
+
+.venue-cap {
+  font-size: 11px;
+  color: var(--text-light);
+}
 
 /* ─── Badges ─── */
 .badge-status {
@@ -918,13 +1077,13 @@
 }
 
 .badge-category {
-  background: linear-gradient(135deg, rgba(233,30,140,0.1) 0%, rgba(124,58,237,0.1) 100%);
+  background: linear-gradient(135deg, rgba(233, 30, 140, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
   color: var(--primary);
   padding: 4px 10px;
   border-radius: 6px;
   font-size: 12.5px;
   font-weight: 600;
-  border: 1px solid rgba(233,30,140,0.2);
+  border: 1px solid rgba(233, 30, 140, 0.2);
 }
 
 .badge-count {
@@ -978,25 +1137,30 @@
 /* ─── Modal / Overlay ─── */
 .form-card-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(15, 23, 42, 0.45);
   backdrop-filter: blur(4px);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
   animation: fade-in 0.2s ease-out;
 }
 
 .form-card {
   width: 100%;
-  max-width: 520px;
-  background-color: #ffffff;
+  max-width: 580px;
+  max-height: 88vh;
+  background-color: var(--card-bg);
   border-radius: 18px;
-  padding: 32px;
   box-sizing: border-box;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
   border: 1px solid var(--border-color);
   animation: slide-up-form 0.25s ease-out;
 }
@@ -1056,7 +1220,9 @@
   gap: 16px;
 }
 
-.flex-1 { flex: 1; }
+.flex-1 {
+  flex: 1;
+}
 
 .form-select {
   appearance: none;
@@ -1119,16 +1285,734 @@
 }
 
 /* ─── Animations ─── */
-@keyframes spin { to { transform: rotate(360deg); } }
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-@keyframes slide-up-form {
-  from { opacity: 0; transform: translateY(20px) scale(0.96); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ══════════════════════════════════════════════════
+   FLUTTER HOME SCREEN STYLES (Matching home_screen.dart)
+   ══════════════════════════════════════════════════ */
+.flutter-home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.flutter-greeting-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.flutter-greeting-sub {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--secondary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.flutter-greeting-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* Banner Slider */
+.flutter-banner-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flutter-banner-card {
+  border-radius: 24px;
+  padding: 24px 28px;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(44, 94, 59, 0.2);
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.flutter-banner-card.banner-1 {
+  background: linear-gradient(135deg, #1B3C24 0%, #2C5E3B 60%, #7EBD55 100%);
+}
+
+.flutter-banner-card.banner-2 {
+  background: linear-gradient(135deg, #2C5E3B 0%, #115e59 100%);
+}
+
+.flutter-banner-badge {
+  background: rgba(255, 255, 255, 0.18);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+.flutter-banner-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  color: #ffffff;
+}
+
+.flutter-banner-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  max-width: 80%;
+  line-height: 1.4;
+}
+
+.flutter-banner-icon-bg {
+  position: absolute;
+  right: 24px;
+  bottom: 20px;
+  font-size: 42px;
+  background: rgba(255, 255, 255, 0.15);
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.flutter-banner-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.flutter-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--border-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.flutter-dot.active {
+  width: 22px;
+  border-radius: 12px;
+  background-color: var(--primary);
+}
+
+/* Premium Alert Bar */
+.flutter-premium-alert {
+  background-color: var(--card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.flutter-premium-badge {
+  background-color: rgba(126, 189, 85, 0.15);
+  color: var(--primary);
+  padding: 5px 12px;
+  border-radius: 30px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.flutter-premium-text {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* Scan History Header */
+.flutter-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.flutter-history-header h3 {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.flutter-history-count {
+  background-color: #f3f4f6;
+  color: var(--text-light);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+/* Empty History */
+.flutter-empty-history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: var(--card-bg);
+  border: 1.5px dashed var(--border-color);
+  border-radius: 24px;
+  text-align: center;
+}
+
+.flutter-empty-icon-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.flutter-empty-icon {
+  font-size: 32px;
+}
+
+.flutter-empty-history h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 6px 0;
+}
+
+.flutter-empty-history p {
+  font-size: 13.5px;
+  color: var(--text-light);
+  margin: 0;
+  max-width: 320px;
+}
+
+/* History List & Cards */
+.flutter-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flutter-history-card {
+  background-color: var(--card-bg);
+  border-radius: 18px;
+  border: 1px solid var(--border-color);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.flutter-history-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+}
+
+.flutter-history-card.healthy::before {
+  background-color: #10b981;
+}
+
+.flutter-history-card.affected::before {
+  background-color: #ef4444;
+}
+
+.flutter-history-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.flutter-history-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.flutter-history-avatar.healthy {
+  background-color: rgba(16, 185, 129, 0.12);
+}
+
+.flutter-history-avatar.affected {
+  background-color: rgba(239, 68, 68, 0.12);
+}
+
+.flutter-history-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.flutter-history-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.flutter-history-sub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.flutter-status-tag {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.flutter-status-tag.healthy {
+  color: #10b981;
+}
+
+.flutter-status-tag.affected {
+  color: #ef4444;
+}
+
+.flutter-disease-name {
+  color: var(--text-light);
+  font-size: 12.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
+}
+
+.flutter-history-date {
+  font-size: 11.5px;
+  color: var(--text-light);
+}
+
+/* ══════════════════════════════════════════════════
+   FLUTTER SEARCH PAGE STYLES (Matching _buildSearchPage)
+   ══════════════════════════════════════════════════ */
+.flutter-search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.flutter-search-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.flutter-search-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px 0 46px;
+  border-radius: 16px;
+  border: 1.5px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-dark);
+  font-size: 14.5px;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.flutter-search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.flutter-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.flutter-plant-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flutter-plant-card {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.flutter-plant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  border-color: var(--primary);
+}
+
+.flutter-plant-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(44, 94, 59, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.flutter-plant-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.flutter-plant-name {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.flutter-plant-sci {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-light);
+}
+
+.flutter-plant-arrow {
+  font-size: 20px;
+  color: var(--text-light);
+}
+
+/* Detail Card Modal Sections */
+/* Detail Card Modal Sections */
+.flutter-detail-card {
+  border-radius: 16px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flutter-detail-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.flutter-detail-card.amber {
+  background: linear-gradient(135deg, rgba(254, 243, 199, 0.85) 0%, rgba(253, 230, 138, 0.5) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.flutter-detail-card.blue {
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.85) 0%, rgba(186, 230, 253, 0.5) 100%);
+  border: 1px solid rgba(2, 132, 199, 0.35);
+}
+
+.flutter-detail-card.green {
+  background: linear-gradient(135deg, rgba(209, 250, 229, 0.85) 0%, rgba(167, 243, 208, 0.5) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.flutter-detail-card.teal {
+  background: linear-gradient(135deg, rgba(204, 251, 241, 0.85) 0%, rgba(153, 246, 228, 0.5) 100%);
+  border: 1px solid rgba(13, 148, 136, 0.35);
+}
+
+.flutter-detail-card.red {
+  background: linear-gradient(135deg, rgba(254, 226, 226, 0.85) 0%, rgba(254, 202, 202, 0.5) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.flutter-detail-card.pink {
+  background: linear-gradient(135deg, rgba(252, 231, 243, 0.85) 0%, rgba(251, 207, 232, 0.5) 100%);
+  border: 1px solid rgba(236, 72, 153, 0.35);
+}
+
+.flutter-detail-card-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.flutter-detail-card-title.amber { color: #b45309; }
+.flutter-detail-card-title.blue { color: #0369a1; }
+.flutter-detail-card-title.green { color: #047857; }
+.flutter-detail-card-title.teal { color: #0f766e; }
+.flutter-detail-card-title.red { color: #b91c1c; }
+.flutter-detail-card-title.pink { color: #be185d; }
+
+.flutter-detail-card-text {
+  font-size: 13.5px;
+  color: #1e293b;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════════════
+   FLUTTER SCAN SOURCE CARDS STYLES (Matching _selectImageSource)
+   ══════════════════════════════════════════════════ */
+.flutter-source-cards-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.flutter-source-card {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+}
+
+.flutter-source-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: 0 8px 20px rgba(44, 94, 59, 0.12);
+  background-color: var(--primary-light);
+}
+
+.flutter-source-card-icon-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background-color: rgba(44, 94, 59, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 12px;
+}
+
+.flutter-source-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+/* ══════════════════════════════════════════════════
+   FLUTTER NOTIFICATIONS STYLES (Matching _showNotificationsDialog)
+   ══════════════════════════════════════════════════ */
+.flutter-notifications-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.flutter-notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flutter-notification-card {
+  background-color: var(--card-bg);
+  border-radius: 18px;
+  border: 1px solid var(--border-color);
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+}
+
+.flutter-notification-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.flutter-notification-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: rgba(44, 94, 59, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.flutter-notification-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.flutter-notification-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════════════
+   FLUTTER LOGOUT SCREEN STYLES (Matching logout_screen.dart)
+   ══════════════════════════════════════════════════ */
+.flutter-logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.flutter-logout-card {
+  background-color: var(--card-bg);
+  border-radius: 28px;
+  border: 1px solid var(--border-color);
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 580px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.flutter-logout-avatar-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background-color: rgba(44, 94, 59, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin: 0 auto;
+}
+
+.flutter-section-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-light);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.flutter-credentials-box {
+  background-color: var(--bg-main);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  margin-top: 8px;
+}
+
+.flutter-cred-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flutter-cred-label {
+  color: var(--text-light);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.flutter-cred-val {
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.flutter-history-summary-box {
+  background-color: var(--bg-main);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flutter-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 4px;
 }
 
 /* ─── Responsive ─── */
@@ -1136,6 +2020,7 @@
   .overview-layout {
     grid-template-columns: 1fr;
   }
+
   .overview-right {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1143,14 +2028,29 @@
 }
 
 @media (max-width: 820px) {
-  .dashboard-container { flex-direction: column; }
-
-  .dashboard-sidebar {
-    width: 100%;
-    padding: 16px 20px;
+  .dashboard-container {
+    flex-direction: column;
   }
 
-  .sidebar-logo { margin-bottom: 16px; }
+  .dashboard-sidebar,
+  .dashboard-sidebar.collapsed {
+    width: 100% !important;
+    padding: 16px 20px !important;
+  }
+
+  .dashboard-sidebar.collapsed .sidebar-logo-text,
+  .dashboard-sidebar.collapsed .sidebar-item-text,
+  .dashboard-sidebar.collapsed .logout-btn .sidebar-item-text {
+    display: inline !important;
+  }
+
+  .sidebar-toggle-btn {
+    display: none !important;
+  }
+
+  .sidebar-logo {
+    margin-bottom: 16px;
+  }
 
   .sidebar-menu {
     flex-direction: row;
@@ -1165,13 +2065,30 @@
     display: inline-flex;
   }
 
-  .sidebar-footer { display: none; }
-  .dashboard-main { padding: 20px 16px; }
+  .sidebar-footer {
+    display: none;
+  }
 
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .chart-row { grid-template-columns: 1fr; }
-  .form-row { flex-direction: column; gap: 0; }
-  .overview-right { grid-template-columns: 1fr; }
+  .dashboard-main {
+    padding: 20px 16px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .chart-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .overview-right {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ══════════════════════════════════════════════════
@@ -1185,7 +2102,7 @@
   border-radius: 14px;
   border: 1px solid var(--border-color);
   padding: 20px 22px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .widget-header {
@@ -1235,7 +2152,9 @@
   transition: opacity 0.2s;
 }
 
-.widget-view-all-btn:hover { opacity: 0.7; }
+.widget-view-all-btn:hover {
+  opacity: 0.7;
+}
 
 .widget-loading {
   color: #9ca3af;
@@ -1278,12 +2197,12 @@
   padding: 10px 14px;
   border-radius: 10px;
   background: #fdf4fb;
-  border: 1px solid rgba(233,30,140,0.1);
+  border: 1px solid rgba(233, 30, 140, 0.1);
   transition: background 0.2s;
 }
 
 .today-event-item:hover {
-  background: rgba(233,30,140,0.06);
+  background: rgba(233, 30, 140, 0.06);
 }
 
 .today-event-color-bar {
@@ -1475,7 +2394,7 @@
   border-radius: 14px;
   border: 1px solid var(--border-color);
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .full-cal-header {
@@ -1514,7 +2433,9 @@
   transition: opacity 0.2s;
 }
 
-.cal-nav-today:hover { opacity: 0.8; }
+.cal-nav-today:hover {
+  opacity: 0.8;
+}
 
 .full-cal-grid {
   display: grid;
@@ -1570,8 +2491,8 @@
 }
 
 .full-cal-cell.selected {
-  background: rgba(233,30,140,0.07);
-  border: 1.5px solid rgba(233,30,140,0.3);
+  background: rgba(233, 30, 140, 0.07);
+  border: 1.5px solid rgba(233, 30, 140, 0.3);
 }
 
 .full-cal-cell.has-events .full-cal-date-num {
@@ -1651,4 +2572,1414 @@
   font-size: 11.5px;
   color: var(--text-light);
   margin-top: 2px;
+}
+
+/* ==========================================================================
+   Top Navigation Bar & Mobile Top Header (Responsive)
+   ========================================================================== */
+
+/* ─── Top Navigation Bar (below header subtitle) ─── */
+.bottom-nav-bar {
+  display: flex;
+  position: sticky;
+  top: 12px;
+  width: calc(100% - 0px);
+  max-width: 720px;
+  height: 68px;
+  background-color: var(--card-bg);
+  border-radius: 40px;
+  box-shadow: 0 4px 24px rgba(44, 94, 59, 0.10);
+  border: 1px solid var(--border-color);
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+  padding: 0 32px;
+  box-sizing: border-box;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  margin: 0 auto 28px auto;
+  /* center it and add space below */
+  flex-shrink: 0;
+}
+
+.bottom-nav-item {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.bottom-nav-item:hover {
+  background-color: var(--primary-light);
+}
+
+.bottom-nav-item.active svg {
+  stroke: #10b981;
+}
+
+/* Center floating scan button wrapper */
+.bottom-nav-center-wrapper {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Center floating scan button */
+.bottom-nav-center-btn {
+  position: absolute;
+  top: -18px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(44, 94, 59, 0.35);
+  border: 3px solid var(--card-bg);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.bottom-nav-center-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(44, 94, 59, 0.45);
+}
+
+.bottom-nav-center-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ─── Mobile Top Header ─── */
+.mobile-top-header {
+  display: none;
+  /* Hidden by default on desktop */
+  height: 64px;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 20px;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+.mobile-logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-logo-icon {
+  font-size: 20px;
+}
+
+.mobile-logo-text {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+.dark-mode-toggle {
+  background: var(--primary-light);
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-dark);
+  transition: all 0.2s ease;
+}
+
+.dark-mode-toggle:hover {
+  background-color: rgba(44, 94, 59, 0.15);
+  transform: scale(1.05);
+}
+
+/* ─── Dark Mode Variables Overrides ─── */
+.dark-mode {
+  --sidebar-bg: #111a14;
+  --bg-main: #0a100c;
+  --border-color: #1c2a20;
+  --card-bg: #111b14;
+  --text-dark: #e4ece6;
+  --text-light: #8ca293;
+  --primary-light: rgba(126, 189, 85, 0.12);
+  --border-color-card: #1c2a20;
+}
+
+.dark-mode .dashboard-header {
+  background: linear-gradient(135deg, rgba(44, 94, 59, 0.18) 0%, rgba(126, 189, 85, 0.08) 100%) !important;
+  border: 1px solid rgba(126, 189, 85, 0.12) !important;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+  background-color: #111a14 !important;
+  border-color: #1c2a20 !important;
+  color: #e4ece6 !important;
+}
+
+.dark-mode input:focus,
+.dark-mode textarea:focus {
+  border-color: var(--secondary) !important;
+  box-shadow: 0 0 0 3px rgba(126, 189, 85, 0.25) !important;
+}
+
+.dark-mode table.recent-table th {
+  background-color: #111a14 !important;
+  color: #e4ece6 !important;
+  border-bottom: 1.5px solid #1c2a20 !important;
+}
+
+.dark-mode table.recent-table td {
+  border-bottom: 1px solid #1c2a20 !important;
+  color: #e4ece6 !important;
+}
+
+.dark-mode table.recent-table tr:hover {
+  background-color: #111a14 !important;
+}
+
+.dark-mode .panel-empty-state {
+  background-color: #111b14 !important;
+  border: 1px dashed #1c2a20 !important;
+  color: #8ca293 !important;
+}
+
+.dark-mode .notification-item.unread {
+  background-color: rgba(126, 189, 85, 0.08) !important;
+}
+
+.dark-mode .form-card-overlay {
+  background-color: rgba(10, 16, 12, 0.8) !important;
+}
+
+.dark-mode .form-card {
+  background-color: #111b14 !important;
+  border: 1px solid #1c2a20 !important;
+  color: #e4ece6 !important;
+}
+
+.dark-mode .form-card h3,
+.dark-mode .form-card h4 {
+  color: #e4ece6 !important;
+}
+
+.dark-mode .search-wrapper input {
+  background-color: #111a14 !important;
+  color: #e4ece6 !important;
+}
+
+.dark-mode .donut-center .donut-total {
+  color: #e4ece6 !important;
+}
+
+.dark-mode .user-profile {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.dark-mode .user-name {
+  color: #e4ece6 !important;
+}
+
+.dark-mode .chart-card {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.dark-mode .chart-card-header h3 {
+  color: #e4ece6 !important;
+}
+
+.dark-mode .chart-period-btn {
+  background: #111a14 !important;
+  color: #8ca293 !important;
+}
+
+.dark-mode .trends-card {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.dark-mode .trends-card h3 {
+  color: #e4ece6 !important;
+}
+
+.dark-mode .trend-name {
+  color: #e4ece6 !important;
+}
+
+.dark-mode .trend-bar-bg {
+  background-color: #111a14 !important;
+}
+
+.dark-mode .upcoming-card {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.dark-mode .upcoming-card h3 {
+  color: #e4ece6 !important;
+}
+
+.dark-mode .upcoming-event-title {
+  color: #e4ece6 !important;
+}
+
+.dark-mode .upcoming-event-desc {
+  color: #8ca293 !important;
+}
+
+.dark-mode .content-section {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.dark-mode .crud-panel {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* ─── Media Query for Mobile and Small Tablet screens ─── */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .mobile-top-header {
+    display: flex !important;
+    height: 60px;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 16px;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+
+  .mobile-menu-toggle {
+    background: var(--primary-light);
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--text-dark);
+  }
+
+  .dashboard-sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    height: calc(100vh - 60px);
+    width: 250px !important;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    z-index: 998;
+  }
+
+  .dashboard-sidebar.collapsed {
+    transform: translateX(-100%);
+  }
+
+  .dashboard-sidebar.collapsed .sidebar-logo-text,
+  .dashboard-sidebar.collapsed .sidebar-item-text {
+    display: inline-block !important;
+  }
+
+  .dashboard-sidebar.collapsed .sidebar-item {
+    justify-content: flex-start;
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .sidebar-toggle-btn {
+    display: none !important;
+  }
+
+  .bottom-nav-bar {
+    display: none !important;
+  }
+
+  .dashboard-main {
+    padding: 16px 16px 32px 16px !important;
+  }
+
+  .dashboard-header {
+    margin-bottom: 20px;
+  }
+
+  .dashboard-header .header-right {
+    display: none !important;
+  }
+
+  .overview-layout {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+
+  .dashboard-banners-container {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .chart-row {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .scan-layout {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+}
+
+/* ─── Professional Top Header & Banner Styles ─── */
+.dashboard-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, rgba(44, 94, 59, 0.08) 0%, rgba(126, 189, 85, 0.06) 100%);
+  border: 1px solid rgba(44, 94, 59, 0.12);
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 16px rgba(44, 94, 59, 0.04);
+}
+
+.welcome-section h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.3px;
+}
+
+.welcome-section p {
+  color: var(--text-light);
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.flutter-home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.flutter-banner-slider {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(44, 94, 59, 0.12);
+}
+
+.flutter-banner-card {
+  padding: 32px 36px;
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #ffffff;
+  border-radius: 18px;
+}
+
+.flutter-banner-card.banner-1 {
+  background: linear-gradient(135deg, #1d4329 0%, #2C5E3B 60%, #4a8459 100%);
+}
+
+.flutter-banner-card.banner-2 {
+  background: linear-gradient(135deg, #1b4d3e 0%, #10b981 60%, #34d399 100%);
+}
+
+.flutter-banner-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  width: fit-content;
+  margin-bottom: 12px;
+}
+
+.flutter-banner-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  color: #ffffff;
+}
+
+.flutter-banner-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 480px;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.flutter-banner-icon-bg {
+  position: absolute;
+  right: 28px;
+  bottom: 20px;
+  font-size: 72px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.flutter-banner-dots {
+  position: absolute;
+  bottom: 14px;
+  right: 24px;
+  display: flex;
+  gap: 6px;
+}
+
+.flutter-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.flutter-dot.active {
+  width: 22px;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.flutter-premium-alert {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 14px 20px;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.flutter-premium-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #10b981;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.flutter-premium-text {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.flutter-history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+.flutter-history-header h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.flutter-history-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.flutter-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.flutter-history-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 16px 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.flutter-history-card.healthy {
+  border-left: 5px solid #10b981;
+}
+
+.flutter-history-card.affected {
+  border-left: 5px solid #ef4444;
+}
+
+.flutter-history-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+  box-shadow: 0 10px 24px rgba(44, 94, 59, 0.14);
+}
+
+.flutter-history-card:hover .flutter-details-link {
+  color: var(--primary);
+  transform: translateX(3px);
+}
+
+.flutter-history-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-light);
+  flex-shrink: 0;
+  font-size: 26px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.flutter-history-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flutter-history-avatar.affected {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.flutter-history-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.flutter-history-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+}
+
+.flutter-history-disease {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flutter-history-disease.healthy {
+  color: #059669;
+}
+
+.flutter-history-disease.affected {
+  color: #dc2626;
+}
+
+.flutter-history-date {
+  font-size: 11.5px;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.flutter-history-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.flutter-status-pill {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.flutter-status-pill.healthy {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.flutter-status-pill.affected {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.flutter-details-link {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-light);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+/* ─── 3-Tier Gallery Scanner Component ─── */
+.scanner-green-card {
+  background: linear-gradient(135deg, #1d4329 0%, #2C5E3B 60%, #4a8459 100%);
+  border-radius: 18px;
+  padding: 24px 28px;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(44, 94, 59, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.scanner-green-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.scanner-green-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  color: #ffffff;
+}
+
+.scanner-green-desc {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.scanner-white-box {
+  background: var(--card-bg);
+  border: 2.5px dashed #10b981;
+  border-radius: 20px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.scanner-white-box:hover {
+  border-color: var(--primary);
+  box-shadow: 0 8px 28px rgba(44, 94, 59, 0.1);
+  background-color: rgba(16, 185, 129, 0.02);
+}
+
+.scanner-upload-arrow {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.scanner-white-box:hover .scanner-upload-arrow {
+  transform: translateY(-4px);
+}
+
+/* ─── Modern Logout Card & Page Styles ─── */
+.flutter-logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 16px;
+  min-height: calc(100vh - 120px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.flutter-logout-card {
+  width: 100%;
+  max-width: 900px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 32px 28px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  animation: logoutCardSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes logoutCardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.flutter-logout-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.flutter-logout-avatar-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2C5E3B 0%, #7EBD55 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 14px auto;
+  box-shadow: 0 8px 24px rgba(44, 94, 59, 0.25);
+  border: 3px solid rgba(255, 255, 255, 0.8);
+}
+
+.flutter-logout-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.flutter-logout-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0 0 4px 0;
+}
+
+.flutter-logout-subtitle {
+  font-size: 13.5px;
+  color: var(--text-light);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.flutter-logout-section {
+  margin-bottom: 22px;
+}
+
+.flutter-section-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--text-light);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.flutter-credentials-box {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 14px 18px;
+}
+
+.flutter-cred-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13.5px;
+}
+
+.flutter-cred-label {
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.flutter-cred-val {
+  color: var(--text-dark);
+  font-weight: 700;
+  font-family: inherit;
+}
+
+.flutter-cred-divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 10px 0;
+}
+
+.flutter-count-pill {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2C5E3B;
+  background: rgba(44, 94, 59, 0.1);
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.flutter-history-summary-box {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(44, 94, 59, 0.3) transparent;
+}
+
+.flutter-history-summary-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.flutter-history-summary-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.flutter-history-summary-box::-webkit-scrollbar-thumb {
+  background-color: rgba(44, 94, 59, 0.25);
+  border-radius: 10px;
+}
+
+.flutter-history-summary-box::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(44, 94, 59, 0.5);
+}
+
+.flutter-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.flutter-summary-img-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flutter-summary-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flutter-summary-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flutter-summary-disease {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.flutter-summary-date {
+  font-size: 11px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.logout-confirm-banner {
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.logout-warning-icon {
+  font-size: 20px;
+}
+
+.logout-confirm-banner p {
+  margin: 0;
+  font-size: 13.5px;
+  color: #991b1b;
+  line-height: 1.35;
+}
+
+.logout-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.logout-btn-cancel {
+  height: 46px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.logout-btn-cancel:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.logout-btn-confirm {
+  height: 46px;
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.25);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.logout-btn-confirm:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
+}
+
+/* ─── Upgraded Diagnosis History Section Styles ─── */
+.flutter-history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.flutter-history-header h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.flutter-history-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2C5E3B;
+  background: rgba(44, 94, 59, 0.12);
+  border: 1px solid rgba(44, 94, 59, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.flutter-history-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 14px;
+}
+
+.filter-pill {
+  height: 32px;
+  padding: 0 14px;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.filter-pill.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.filter-pill.green.active {
+  color: #059669;
+  background: #ecfdf5;
+}
+
+.filter-pill.red.active {
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+.flutter-search-input-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 16px 0 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+.flutter-search-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 42px 0 46px;
+  border-radius: 16px;
+  border: 1.5px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-dark);
+  font-size: 14.5px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.flutter-search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.flutter-search-icon {
+  position: absolute;
+  left: 16px;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.flutter-search-clear-btn {
+  position: absolute;
+  right: 14px;
+  background: #cbd5e1;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 10px;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.flutter-search-clear-btn:hover {
+  background: #94a3b8;
+  color: #ffffff;
+}
+
+.flutter-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flutter-history-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.flutter-history-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+}
+
+.flutter-history-card.healthy::before {
+  background-color: #10b981;
+}
+
+.flutter-history-card.affected::before {
+  background-color: #ef4444;
+}
+
+.flutter-history-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  border-color: rgba(44, 94, 59, 0.3);
+}
+
+.flutter-history-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.flutter-history-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.flutter-history-card:hover .flutter-history-avatar img {
+  transform: scale(1.1);
+}
+
+.flutter-history-avatar.healthy {
+  background: rgba(16, 185, 129, 0.12);
+  border: 2px solid #10b981;
+}
+
+.flutter-history-avatar.affected {
+  background: rgba(239, 68, 68, 0.12);
+  border: 2px solid #ef4444;
+}
+
+.flutter-history-content {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.flutter-history-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.flutter-history-sciname {
+  font-size: 12.5px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--text-light);
+}
+
+.flutter-history-disease {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.flutter-history-disease.healthy { color: #059669; }
+.flutter-history-disease.affected { color: #dc2626; }
+
+.flutter-history-date {
+  font-size: 11.5px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.flutter-history-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.flutter-status-pill {
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.flutter-status-pill.healthy {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.flutter-status-pill.affected {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #b91c1c;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.flutter-details-link {
+  height: 32px;
+  padding: 0 14px;
+  background: rgba(44, 94, 59, 0.08);
+  border: 1px solid rgba(44, 94, 59, 0.2);
+  border-radius: 10px;
+  color: #2C5E3B;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.flutter-details-link:hover {
+  background: #2C5E3B;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(44, 94, 59, 0.25);
+}
+
+.btn-action-delete {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-action-delete:hover {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.flutter-empty-history {
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--card-bg);
+  border: 1.5px dashed var(--border-color);
+  border-radius: 20px;
+}
+
+.flutter-empty-icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(44, 94, 59, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 16px auto;
+}
+
+.flutter-empty-history h4 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0 0 6px 0;
+}
+
+.flutter-empty-history p {
+  font-size: 13.5px;
+  color: var(--text-light);
+  margin: 0;
+}
+
+/* ─── Unified Container Width ─── */
+.flutter-scan-container,
+.flutter-search-container,
+.flutter-logout-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
